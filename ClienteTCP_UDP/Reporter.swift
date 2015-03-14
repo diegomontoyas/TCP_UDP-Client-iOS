@@ -71,31 +71,32 @@ class Reporter: NSObject, CLLocationManagerDelegate
     
     private func reportingTimerTicked(timer:NSTimer)
     {
+        let coordinate = locationManager.location.coordinate
+        let event = "\(coordinate.latitude), \(coordinate.longitude): \(protocolToUSe)"
+        let data = (event as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
+
         if protocolToUSe == "TCP"
         {
-            sendLocationOverTCP()
+            sendDataOverTCP(data, eventDescription: event)
         }
         else
         {
-            sendLocationOverUDP()
+            sendDataOverUDP(data, eventDescription: event)
         }
     }
     
-    private func sendLocationOverUDP()
+    private func sendDataOverUDP(data: NSData, eventDescription:String)
     {
-        let coordinate = locationManager.location.coordinate
-        let data = NSString(string: "\(coordinate.latitude), \(coordinate.longitude): \(protocolToUSe)").dataUsingEncoding(NSUTF8StringEncoding)!
-        
         UDPSocket.sendData(data, toHost: serverIP, port: serverTCPPort, withTimeout: 0.0, tag: 0)
+        addToHistory(eventDescription)
     }
     
-    private func sendLocationOverTCP()
+    private func sendDataOverTCP(data: NSData, eventDescription:String)
     {
-        let coordinate = locationManager.location.coordinate
-        let data = NSString(string: "\(coordinate.latitude), \(coordinate.longitude): \(protocolToUSe)").dataUsingEncoding(NSUTF8StringEncoding)!
         var error:NSError? = nil
         
         TCPSocket.connectToHost(serverIP, onPort: serverTCPPort, error: &error)
+        addToHistory(eventDescription)
     }
     
     private func addToHistory(event:String)
