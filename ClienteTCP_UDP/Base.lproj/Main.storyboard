@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="ClienteTCP_UDP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +16,111 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xrx-Va-oXu">
+                                <rect key="frame" x="-61" y="-14" width="123" height="29"/>
+                                <segments>
+                                    <segment title="TCP"/>
+                                    <segment title="UDP"/>
+                                </segments>
+                                <connections>
+                                    <action selector="protocolChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="e1t-bK-qem"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8N-9v-Pwg">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="102" id="Fls-gw-S5p"/>
+                                </constraints>
+                                <state key="normal" title="Iniciar">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Fls-gw-S5p"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Fls-gw-S5p"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="startStopButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JwV-ic-Cld"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rwW-ww-bX6">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" id="LGA-rI-Xwd">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LGA-rI-Xwd" id="aAJ-5l-b33">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rwW-ww-bX6" firstAttribute="top" secondItem="W8N-9v-Pwg" secondAttribute="bottom" constant="8" symbolic="YES" id="CJV-nK-bJg"/>
+                            <constraint firstAttribute="trailing" secondItem="rwW-ww-bX6" secondAttribute="trailing" id="URH-mf-0Hh"/>
+                            <constraint firstItem="W8N-9v-Pwg" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="Vti-Lm-Zru"/>
+                            <constraint firstItem="xrx-Va-oXu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="XFA-jR-eLp"/>
+                            <constraint firstItem="W8N-9v-Pwg" firstAttribute="leading" secondItem="xrx-Va-oXu" secondAttribute="trailing" constant="8" symbolic="YES" id="iDP-Q5-U6L"/>
+                            <constraint firstItem="rwW-ww-bX6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="kyE-DS-dYh"/>
+                            <constraint firstItem="xrx-Va-oXu" firstAttribute="top" secondItem="W8N-9v-Pwg" secondAttribute="top" id="lSG-jg-Kfj"/>
+                            <constraint firstItem="rwW-ww-bX6" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="uUo-9J-eWh"/>
+                            <constraint firstItem="xrx-Va-oXu" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="wv6-zN-1M0"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="xrx-Va-oXu"/>
+                                <exclude reference="W8N-9v-Pwg"/>
+                                <exclude reference="rwW-ww-bX6"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="XFA-jR-eLp"/>
+                                <exclude reference="lSG-jg-Kfj"/>
+                                <exclude reference="wv6-zN-1M0"/>
+                                <exclude reference="CJV-nK-bJg"/>
+                                <exclude reference="URH-mf-0Hh"/>
+                                <exclude reference="kyE-DS-dYh"/>
+                                <exclude reference="uUo-9J-eWh"/>
+                                <exclude reference="Vti-Lm-Zru"/>
+                                <exclude reference="iDP-Q5-U6L"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="xrx-Va-oXu"/>
+                                <include reference="W8N-9v-Pwg"/>
+                                <include reference="rwW-ww-bX6"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="XFA-jR-eLp"/>
+                                <include reference="lSG-jg-Kfj"/>
+                                <include reference="wv6-zN-1M0"/>
+                                <include reference="CJV-nK-bJg"/>
+                                <include reference="URH-mf-0Hh"/>
+                                <include reference="kyE-DS-dYh"/>
+                                <include reference="uUo-9J-eWh"/>
+                                <include reference="Vti-Lm-Zru"/>
+                                <include reference="iDP-Q5-U6L"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="startStopButton" destination="W8N-9v-Pwg" id="Mbd-Ie-kc2"/>
+                        <outlet property="startStopButtonPressed" destination="W8N-9v-Pwg" id="lwU-ah-6VW"/>
+                        <outlet property="tableView" destination="rwW-ww-bX6" id="3zm-ci-G4l"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="375" y="349.5"/>
         </scene>
     </scenes>
 </document>

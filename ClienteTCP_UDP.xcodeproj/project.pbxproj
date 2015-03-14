@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F138892C1AB4D81900C01A13 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F13887ED1AB4D81900C01A13 /* .gitignore */; };
+		F138892D1AB4D81900C01A13 /* CocoaAsyncSocket.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F13887EE1AB4D81900C01A13 /* CocoaAsyncSocket.podspec */; };
+		F138892F1AB4D81900C01A13 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = F13887F21AB4D81900C01A13 /* GCDAsyncSocket.m */; };
+		F13889301AB4D81900C01A13 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = F13887F41AB4D81900C01A13 /* GCDAsyncUdpSocket.m */; };
 		F15A1CDE1AB4ADC800B23836 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A1CDD1AB4ADC800B23836 /* AppDelegate.swift */; };
 		F15A1CE01AB4ADC800B23836 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A1CDF1AB4ADC800B23836 /* ViewController.swift */; };
 		F15A1CE31AB4ADC800B23836 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F15A1CE11AB4ADC800B23836 /* Main.storyboard */; };
 		F15A1CE51AB4ADC800B23836 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F15A1CE41AB4ADC800B23836 /* Images.xcassets */; };
 		F15A1CE81AB4ADC800B23836 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F15A1CE61AB4ADC800B23836 /* LaunchScreen.xib */; };
 		F15A1CF41AB4ADC800B23836 /* ClienteTCP_UDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A1CF31AB4ADC800B23836 /* ClienteTCP_UDPTests.swift */; };
+		F15A1CFE1AB4ADF200B23836 /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A1CFD1AB4ADF200B23836 /* Reporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +31,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F13887ED1AB4D81900C01A13 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F13887EE1AB4D81900C01A13 /* CocoaAsyncSocket.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CocoaAsyncSocket.podspec; sourceTree = "<group>"; };
+		F13887F11AB4D81900C01A13 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		F13887F21AB4D81900C01A13 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		F13887F31AB4D81900C01A13 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		F13887F41AB4D81900C01A13 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		F13889E01AB4D84900C01A13 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F15A1CD81AB4ADC800B23836 /* ClienteTCP_UDP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClienteTCP_UDP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15A1CDC1AB4ADC800B23836 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F15A1CDD1AB4ADC800B23836 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +48,7 @@
 		F15A1CED1AB4ADC800B23836 /* ClienteTCP_UDPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClienteTCP_UDPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15A1CF21AB4ADC800B23836 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F15A1CF31AB4ADC800B23836 /* ClienteTCP_UDPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClienteTCP_UDPTests.swift; sourceTree = "<group>"; };
+		F15A1CFD1AB4ADF200B23836 /* Reporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +69,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F13887EC1AB4D81900C01A13 /* CocoaAsyncSocket-master */ = {
+			isa = PBXGroup;
+			children = (
+				F13887ED1AB4D81900C01A13 /* .gitignore */,
+				F13887EE1AB4D81900C01A13 /* CocoaAsyncSocket.podspec */,
+				F13887EF1AB4D81900C01A13 /* GCD */,
+			);
+			path = "CocoaAsyncSocket-master";
+			sourceTree = "<group>";
+		};
+		F13887EF1AB4D81900C01A13 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				F13887F11AB4D81900C01A13 /* GCDAsyncSocket.h */,
+				F13887F21AB4D81900C01A13 /* GCDAsyncSocket.m */,
+				F13887F31AB4D81900C01A13 /* GCDAsyncUdpSocket.h */,
+				F13887F41AB4D81900C01A13 /* GCDAsyncUdpSocket.m */,
+			);
+			path = GCD;
+			sourceTree = "<group>";
+		};
 		F15A1CCF1AB4ADC800B23836 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +111,8 @@
 		F15A1CDA1AB4ADC800B23836 /* ClienteTCP_UDP */ = {
 			isa = PBXGroup;
 			children = (
+				F13889E01AB4D84900C01A13 /* Bridging-Header.h */,
+				F15A1CFD1AB4ADF200B23836 /* Reporter.swift */,
 				F15A1CDD1AB4ADC800B23836 /* AppDelegate.swift */,
 				F15A1CDF1AB4ADC800B23836 /* ViewController.swift */,
 				F15A1CE11AB4ADC800B23836 /* Main.storyboard */,
@@ -90,6 +126,7 @@
 		F15A1CDB1AB4ADC800B23836 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F13887EC1AB4D81900C01A13 /* CocoaAsyncSocket-master */,
 				F15A1CDC1AB4ADC800B23836 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -175,6 +212,7 @@
 			knownRegions = (
 				en,
 				Base,
+				English,
 			);
 			mainGroup = F15A1CCF1AB4ADC800B23836;
 			productRefGroup = F15A1CD91AB4ADC800B23836 /* Products */;
@@ -192,9 +230,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F138892C1AB4D81900C01A13 /* .gitignore in Resources */,
 				F15A1CE31AB4ADC800B23836 /* Main.storyboard in Resources */,
 				F15A1CE81AB4ADC800B23836 /* LaunchScreen.xib in Resources */,
 				F15A1CE51AB4ADC800B23836 /* Images.xcassets in Resources */,
+				F138892D1AB4D81900C01A13 /* CocoaAsyncSocket.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +252,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F138892F1AB4D81900C01A13 /* GCDAsyncSocket.m in Sources */,
+				F13889301AB4D81900C01A13 /* GCDAsyncUdpSocket.m in Sources */,
 				F15A1CE01AB4ADC800B23836 /* ViewController.swift in Sources */,
+				F15A1CFE1AB4ADF200B23836 /* Reporter.swift in Sources */,
 				F15A1CDE1AB4ADC800B23836 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +382,7 @@
 				INFOPLIST_FILE = ClienteTCP_UDP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ClienteTCP_UDP/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -349,6 +393,7 @@
 				INFOPLIST_FILE = ClienteTCP_UDP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ClienteTCP_UDP/Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -405,6 +450,7 @@
 				F15A1CF91AB4ADC800B23836 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F15A1CFA1AB4ADC800B23836 /* Build configuration list for PBXNativeTarget "ClienteTCP_UDPTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +459,7 @@
 				F15A1CFC1AB4ADC800B23836 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
