@@ -28,9 +28,21 @@ class Reporter: NSObject, CLLocationManagerDelegate
     let TCPSocket: GCDAsyncSocket!
     
     private(set) var history = [String]()
+    var historyLock = NSObject()
+    
     private var reportingTimer: NSTimer!
     var protocolToUSe = "TCP"
     private(set) var reporting = false
+    
+    var numberOfThreads: Int = 1
+    {
+        didSet
+        {
+            updateThreads()
+        }
+    }
+    
+    var operationQueues = [NSOperationQueue]()
     
     var delegate: ReporterDelegate?
     
@@ -61,57 +73,64 @@ class Reporter: NSObject, CLLocationManagerDelegate
     
     private func establishConnectionAndStartReporting()
     {
-        /*NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            
-            
-        })*/
-        
         reportingTimer = NSTimer.scheduledTimerWithTimeInterval(self.reportingInterval, target: self, selector: Selector("reportingTimerTicked:"), userInfo: nil, repeats: true)
+       
+        createThreads()
     }
     
-    private func reportingTimerTicked(timer:NSTimer)
+    private func updateThreads()
     {
-        let coordinate = locationManager.location.coordinate
-        let event = "\(coordinate.latitude), \(coordinate.longitude): \(protocolToUSe)"
-        let data = (event as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
-
-        if protocolToUSe == "TCP"
+        for operationQueue in operationQueues
         {
-            sendDataOverTCP(data, eventDescription: event)
+            operationQueue.cancelAllOperations()
         }
-        else
-        {
-            sendDataOverUDP(data, eventDescription: event)
-        }
-    }
-    
-    private func sendDataOverUDP(data: NSData, eventDescription:String)
-    {
-        UDPSocket.sendData(data, toHost: serverIP, port: serverTCPPort, withTimeout: 0.0, tag: 0)
-        addToHistory(eventDescription)
-    }
-    
-    private func sendDataOverTCP(data: NSData, eventDescription:String)
-    {
-        var error:NSError? = nil
+        operationQueues = []
         
-        TCPSocket.connectToHost(serverIP, onPort: serverTCPPort, error: &error)
-        addToHistory(eventDescription)
+        createThreads()
     }
     
-    private func addToHistory(event:String)
+    private func createThreads()
     {
-        if history.count == historyLimit
+        for i in 1...numberOfThreads
         {
-            history.removeAtIndex(0)
+            addThread(i)
         }
-        history.append(event)
-        
+    }
+    
+    private func addThread(tag:Int)
+    {
+        let operationQueue = NSOperationQueue()
+        operationQueue.addOperation(ReporterOperation(reporter: self, tag: tag))
+        operationQueues.append(operationQueue)
+    }
+    
+    private func removeThread()
+    {
+        operationQueues.last?.cancelAllOperations()
+        operationQueues.removeLast()
+    }
+    
+    func reportingTimerTicked(timer:NSTimer)
+    {
         dispatch_async(dispatch_get_main_queue()){
             
             self.delegate?.reporterDidReportLocation(self)
             ()
         }
+    }
+    
+    private func addToHistory(event:String)
+    {
+        objc_sync_enter(historyLock)
+        
+        if history.count == historyLimit
+        {
+            history.removeAtIndex(0)
+        }
+        
+        history.append(event)
+        
+        objc_sync_exit(historyLock)
     }
 
     // LocationDelegate
@@ -119,5 +138,53 @@ class Reporter: NSObject, CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
         locationManager.startUpdatingLocation()
+    }
+}
+
+class ReporterOperation: NSOperation
+{
+    let reporter:Reporter!
+    let tag:Int!
+    
+    init(reporter:Reporter, tag:Int)
+    {
+        super.init()
+        self.reporter = reporter
+        self.tag = tag
+    }
+    
+    override func main()
+    {
+        while !cancelled
+        {
+            let coordinate = reporter.locationManager.location.coordinate
+            let event = "\(coordinate.latitude), \(coordinate.longitude): \(reporter.protocolToUSe)"
+            let data = (event as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
+            
+            if reporter.protocolToUSe == "TCP"
+            {
+                sendDataOverTCP(data, eventDescription: event)
+            }
+            else
+            {
+                sendDataOverUDP(data, eventDescription: event)
+            }
+            
+            NSThread.sleepForTimeInterval(reporter.reportingInterval)
+        }
+    }
+    
+    private func sendDataOverUDP(data: NSData, eventDescription:String)
+    {
+        reporter.UDPSocket.sendData(data, toHost: reporter.serverIP, port: reporter.serverTCPPort, withTimeout: 0.0, tag: 0)
+        reporter.addToHistory(eventDescription)
+    }
+    
+    private func sendDataOverTCP(data: NSData, eventDescription:String)
+    {
+        var error:NSError? = nil
+        
+        reporter.TCPSocket.connectToHost(reporter.serverIP, onPort: reporter.serverTCPPort, error: &error)
+        reporter.addToHistory(eventDescription)
     }
 }

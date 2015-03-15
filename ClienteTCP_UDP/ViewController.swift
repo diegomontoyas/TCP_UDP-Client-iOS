@@ -12,6 +12,8 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
 {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startStopButton: UIButton!
+    @IBOutlet weak var numberOfThreadsTextField: UITextField!
+    @IBOutlet weak var numberOfThreadsLabel: UILabel!
  
     let reporter = Reporter()
     
@@ -21,6 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
 
         tableView.dataSource = self
         reporter.delegate = self
+        numberOfThreadsLabel.text = reporter.numberOfThreads.description
     }
 
     override func didReceiveMemoryWarning()
@@ -29,17 +32,23 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func updateButtonPressed(sender: AnyObject)
+    {
+        reporter.numberOfThreads = numberOfThreadsTextField.text.toInt()!
+        numberOfThreadsLabel.text = reporter.numberOfThreads.description
+    }
+    
     @IBAction func startStopButtonPressed(sender: UIButton)
     {
         reporter.startStop()
-        startStopButton.titleLabel!.text = reporter.reporting ? "Detener":"Iniciar"
+        startStopButton.setTitle(reporter.reporting ? "Detener":"Iniciar", forState: UIControlState.Normal)
     }
     
     @IBAction func protocolChanged(sender: UISegmentedControl)
     {
         reporter.protocolToUSe = sender.titleForSegmentAtIndex(sender.selectedSegmentIndex)!
     }
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return reporter.history.count
@@ -54,7 +63,9 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
     
     func reporterDidReportLocation(reporter: Reporter)
     {
+        let rows = reporter.history.count
         tableView.reloadData()
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: rows-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
 }
 
