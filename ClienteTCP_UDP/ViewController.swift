@@ -70,6 +70,12 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate,
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell") as UITableViewCell!
         cell.textLabel!.text = history[indexPath.row]
+        
+        if (history[indexPath.row] as NSString).rangeOfString("failed").location != NSNotFound
+        {
+            cell.textLabel?.textColor = UIColor.redColor()
+        }
+        
         return cell
     }
     

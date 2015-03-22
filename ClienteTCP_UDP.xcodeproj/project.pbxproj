@@ -18,6 +18,8 @@
 		F15A1CE81AB4ADC800B23836 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F15A1CE61AB4ADC800B23836 /* LaunchScreen.xib */; };
 		F15A1CF41AB4ADC800B23836 /* ClienteTCP_UDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A1CF31AB4ADC800B23836 /* ClienteTCP_UDPTests.swift */; };
 		F15A1CFE1AB4ADF200B23836 /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A1CFD1AB4ADF200B23836 /* Reporter.swift */; };
+		F1A24B9B1ABF6AF400E5A085 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A24B971ABF6AF400E5A085 /* FastServerSocket.m */; };
+		F1A24B9C1ABF6AF400E5A085 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A24B991ABF6AF400E5A085 /* FastSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,10 @@
 		F15A1CF21AB4ADC800B23836 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F15A1CF31AB4ADC800B23836 /* ClienteTCP_UDPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClienteTCP_UDPTests.swift; sourceTree = "<group>"; };
 		F15A1CFD1AB4ADF200B23836 /* Reporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
+		F1A24B961ABF6AF400E5A085 /* FastServerSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastServerSocket.h; sourceTree = "<group>"; };
+		F1A24B971ABF6AF400E5A085 /* FastServerSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastServerSocket.m; sourceTree = "<group>"; };
+		F1A24B981ABF6AF400E5A085 /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = "<group>"; };
+		F1A24B991ABF6AF400E5A085 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +132,7 @@
 		F15A1CDB1AB4ADC800B23836 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F1A24B951ABF6AD700E5A085 /* FastSocket */,
 				F13887EC1AB4D81900C01A13 /* CocoaAsyncSocket-master */,
 				F15A1CDC1AB4ADC800B23836 /* Info.plist */,
 			);
@@ -147,6 +154,17 @@
 				F15A1CF21AB4ADC800B23836 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1A24B951ABF6AD700E5A085 /* FastSocket */ = {
+			isa = PBXGroup;
+			children = (
+				F1A24B961ABF6AF400E5A085 /* FastServerSocket.h */,
+				F1A24B971ABF6AF400E5A085 /* FastServerSocket.m */,
+				F1A24B981ABF6AF400E5A085 /* FastSocket.h */,
+				F1A24B991ABF6AF400E5A085 /* FastSocket.m */,
+			);
+			name = FastSocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +274,8 @@
 				F138892F1AB4D81900C01A13 /* GCDAsyncSocket.m in Sources */,
 				F13889301AB4D81900C01A13 /* GCDAsyncUdpSocket.m in Sources */,
 				F15A1CE01AB4ADC800B23836 /* ViewController.swift in Sources */,
+				F1A24B9C1ABF6AF400E5A085 /* FastSocket.m in Sources */,
+				F1A24B9B1ABF6AF400E5A085 /* FastServerSocket.m in Sources */,
 				F15A1CFE1AB4ADF200B23836 /* Reporter.swift in Sources */,
 				F15A1CDE1AB4ADC800B23836 /* AppDelegate.swift in Sources */,
 			);

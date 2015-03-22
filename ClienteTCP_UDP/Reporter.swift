@@ -161,7 +161,7 @@ class ReporterOperation: NSOperation, GCDAsyncSocketDelegate
     let tag:Int!
     
     let queue = NSOperationQueue()
-    var TCPSocket: GCDAsyncSocket!
+    var TCPSocket: FastSocket!
     let UDPSocket: GCDAsyncUdpSocket!
     
     let protocolToUSe: String!
@@ -175,9 +175,7 @@ class ReporterOperation: NSOperation, GCDAsyncSocketDelegate
         
         if protocolToUSe == "TCP"
         {
-            TCPSocket = GCDAsyncSocket(delegate: self, delegateQueue: queue)
-            var error:NSError? = nil
-            TCPSocket.connectToHost(reporter.serverIP, onPort: reporter.serverTCPPort, error: &error)
+            TCPSocket = FastSocket(host: reporter.serverIP, andPort: String(reporter.serverTCPPort))
         }
         else
         {
@@ -202,34 +200,36 @@ class ReporterOperation: NSOperation, GCDAsyncSocketDelegate
         let TCP = protocolToUSe == "TCP"
         var error:NSError? = nil
         
-        if TCP && TCPSocket.isDisconnected
-        {
-            TCPSocket.connectToHost(reporter.serverIP, onPort: reporter.serverTCPPort, error: &error)
-        }
-        
-        if (TCP && TCPSocket.isConnected) || !TCP
+        if !TCP || (TCP && (TCPSocket.isConnected() || TCPSocket.connect(200)))
         {
             let location = reporter.locationManager.location
             let coordinate = location.coordinate
-            let events = ["t\(tag)-lat-\(abs(coordinate.latitude))", "t\(tag)-long-\(abs(coordinate.longitude))", "t\(tag)-alt-\(location.altitude)", "t\(tag)-speed-\(abs(location.speed))"]
             
-            for event in events
+            let TCPEvents = ["\(abs(coordinate.latitude))", "\(abs(coordinate.longitude))", "\(location.altitude)", "\(abs(location.speed))"]
+            let UDPEvents = ["t\(tag)-lat-\(abs(coordinate.latitude))", "t\(tag)-long-\(abs(coordinate.longitude))", "t\(tag)-alt-\(location.altitude)", "t\(tag)-speed-\(abs(location.speed))"]
+            
+            if TCP
             {
-                let data = (event as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
-                
-                if TCP
+                for event in TCPEvents
                 {
+                    let data = (event as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
                     sendDataOverTCP(data, eventDescription: event)
                 }
-                else
+                
+                //TCPSocket.close()
+            }
+            else
+            {
+                for event in UDPEvents
                 {
+                    let data = (event as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
                     sendDataOverUDP(data, eventDescription: event)
                 }
             }
         }
         else
         {
-            reporter.addToHistory("T\(tag) Connection Failed")
+            reporter.addToHistory("T\(tag) CONNECTION FAILED")
         }
     }
     
@@ -241,7 +241,15 @@ class ReporterOperation: NSOperation, GCDAsyncSocketDelegate
     
     private func sendDataOverTCP(data: NSData, eventDescription:String)
     {
-        TCPSocket.writeData(data, withTimeout: 1, tag: 0)
-        reporter.addToHistory("TCP: " + eventDescription)
+        //TCPSocket.writeData(data, withTimeout: 1, tag: 0)
+        
+        if TCPSocket.sendBytes(data.bytes, count: data.length) == data.length
+        {
+            reporter.addToHistory("TCP: " + eventDescription)
+        }
+        else
+        {
+            reporter.addToHistory("T\(tag) FAILED TO WRITE TO SOCKET")
+        }
     }
 }

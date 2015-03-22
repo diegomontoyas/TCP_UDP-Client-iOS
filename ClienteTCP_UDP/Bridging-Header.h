@@ -11,5 +11,6 @@
 
 #import "GCDAsyncUdpSocket.h"
 #import "GCDAsyncSocket.h"
+#import "FastSocket.h"
 
 #endif
