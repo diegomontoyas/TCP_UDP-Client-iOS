@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
+class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate, UITextFieldDelegate
 {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startStopButton: UIButton!
@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
     @IBOutlet weak var numberOfThreadsLabel: UILabel!
  
     let reporter = Reporter()
+    var history: [String]!
     
     override func viewDidLoad()
     {
@@ -24,6 +25,17 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
         tableView.dataSource = self
         reporter.delegate = self
         numberOfThreadsLabel.text = reporter.numberOfThreads.description
+        
+        numberOfThreadsTextField.delegate = self
+        
+        history = reporter.history
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        reporter.numberOfThreads = numberOfThreadsTextField.text.toInt()!
+        textField.endEditing(true)
+        return true
     }
 
     override func didReceiveMemoryWarning()
@@ -51,21 +63,28 @@ class ViewController: UIViewController, UITableViewDataSource, ReporterDelegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return reporter.history.count
+        return history.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell") as UITableViewCell!
-        cell.textLabel!.text = reporter.history[indexPath.row]
+        cell.textLabel!.text = history[indexPath.row]
         return cell
     }
     
     func reporterDidReportLocation(reporter: Reporter)
     {
-        let rows = reporter.history.count
+        numberOfThreadsLabel.text = reporter.numberOfThreads.description
+        startStopButton.setTitle(reporter.reporting ? "Detener":"Iniciar", forState: UIControlState.Normal)
+
+        history = reporter.history
         tableView.reloadData()
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: rows-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        
+        if history.count > 0
+        {
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: history.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        }
     }
 }
 

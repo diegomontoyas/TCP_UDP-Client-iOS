@@ -198,6 +198,7 @@
 				TargetAttributes = {
 					F15A1CD71AB4ADC800B23836 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 29G7CN67XL;
 					};
 					F15A1CEC1AB4ADC800B23836 = {
 						CreatedOnToolsVersion = 6.2;
@@ -379,7 +380,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ClienteTCP_UDP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ClienteTCP_UDP/Bridging-Header.h";
@@ -390,7 +393,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ClienteTCP_UDP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ClienteTCP_UDP/Bridging-Header.h";
